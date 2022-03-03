@@ -3,7 +3,7 @@ import json
 from threading import Thread
 
 SERVER_ADDRESS='127.0.0.1'
-SERVER_PORT=22224
+SERVER_PORT=22220
 
 def ricevi_comandi(sock_service, addr_client):
     print("avviato")
@@ -13,23 +13,23 @@ def ricevi_comandi(sock_service, addr_client):
                 break
             data=data.decode()
             data=json.loads(data)
-            num1=data['num1']
+            primoNumero=data['primoNumero']
             operazione=data['operazione']
-            num2=data['num2']
+            secondoNumero=data['secondoNumero']
             risultato=""
             if operazione=="+":
-                risultato=num1+num2
+                risultato=primoNumero+secondoNumero
             elif operazione=="-":
-                risultato=num1-num2
+                risultato=primoNumero-secondoNumero
             elif operazione=="*":
-                risultato=num1*num2
+                risultato=primoNumero*secondoNumero
             elif operazione=="/":
-                if num2==0:
+                if secondoNumero==0:
                     risultato="Impossibile dividere per 0"
                 else:
-                    risultato=num1/num2
+                    risultato=primoNumero/secondoNumero
             elif operazione=="%":
-                risultato=num1%num2
+                risultato=primoNumero%secondoNumero
             else:
                 risultato="Operazione non andata a buon fine"
             risultato=str(risultato)
@@ -51,9 +51,9 @@ def ricevi_connessioni(sock_listen):
 def avvia_server(indirizzo, porta):
     sock_listen=socket.socket()
     sock_listen.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    sock_listen.bind((SERVER_ADDRESS, SERVER_PORT))
+    sock_listen.bind((indirizzo,porta))
     sock_listen.listen(5)
-    print("Server in ascolto su %s." % str((SERVER_ADDRESS, SERVER_PORT)))
+    print("Server in ascolto su %s." % str((indirizzo,porta)))
     ricevi_connessioni(sock_listen)
 
 if __name__=='__main__':
