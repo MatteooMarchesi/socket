@@ -13,6 +13,7 @@ def ricevi_comandi(sock_service, addr_client):
                 break
             data=data.decode()
             data=json.loads(data)
+            
             primoNumero=data['primoNumero']
             operazione=data['operazione']
             secondoNumero=data['secondoNumero']
