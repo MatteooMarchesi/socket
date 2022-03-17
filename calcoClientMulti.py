@@ -91,7 +91,7 @@ if __name__ == '__main__':
 
     # 8 avvio tutti i processi
     for p1 in process:
-        p1.join()
+        p1.start()
     # 9 aspetto la fine di tutti i processi
     for p1 in process:
         p1.join() 
