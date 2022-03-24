@@ -49,9 +49,8 @@ class Server():
             print("\nConnessione ricevuta da "+str(addr_client))
             print("\nCreo un thread per servire le richieste ")
             try:
-                Thread(target=ricevi_comandi, args=(sock_service, addr_client)).start()
-            except Exception as e:
-                print(e)
+                Thread(target=self.ricevi_comandi, args=(sock_service, addr_client)).start()
+            except:
                 print("il thread non si avvia ")
                 sock_listen.close()
 
